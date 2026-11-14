@@ -1,0 +1,16 @@
+{
+  "fixture_id": "MDB-CHG-001",
+  "implementation": [
+    "Confirm staging MongoDB access and a backup of pipeline-v1 exist before making changes.",
+    "Deploy pipeline-v2 to the staging environment after the prerequisite checks."
+  ],
+  "rollback": [
+    "If the pipeline fails or daily revenue totals differ from expected results, stop rollout.",
+    "Restore pipeline-v1 from the saved configuration.",
+    "Run pipeline-v1 against the staging fixture and verify successful execution and expected revenue totals."
+  ],
+  "verification": [
+    "Run a basic smoke test of pipeline-v2 using a small sample of staging revenue documents.",
+    "Confirm the aggregation succeeds and resulting daily revenue totals match expected fixture values."
+  ]
+}
