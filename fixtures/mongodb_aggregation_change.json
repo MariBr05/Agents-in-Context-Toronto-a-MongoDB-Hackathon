@@ -1,0 +1,11 @@
+{
+  "fixture_id": "MDB-CHG-001",
+  "service_id": "mongodb-revenue-aggregation",
+  "change_type": "aggregation_pipeline_update",
+  "target_environment": "staging",
+  "proposed_change": "Update the MongoDB daily revenue aggregation pipeline to compute revenue totals with revised discount-handling logic.",
+  "known_dependencies": ["revenue_dashboard_refresh_job"],
+  "deployment_artifact": "aggregation_pipelines/daily_revenue",
+  "prior_version": "pipeline-v1",
+  "new_version": "pipeline-v2"
+}
