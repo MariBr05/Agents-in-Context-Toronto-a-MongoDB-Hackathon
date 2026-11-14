@@ -48,3 +48,9 @@ def check_dashboard_refresh(plan: Plan) -> Optional[str]:
 VALIDATORS: Dict[str, Callable[[Plan], Optional[str]]] = {
     RULE_DASHBOARD_REFRESH: check_dashboard_refresh,
 }
+
+
+# rule_type -> (finding code, "missing" text, suggested step). Fixed table: memory text never supplies these.
+RULE_FINDINGS = {
+    RULE_DASHBOARD_REFRESH: (CODE_DASHBOARD_REFRESH, DASHBOARD_REFRESH_MISSING, DASHBOARD_REFRESH_SUGGESTION),
+}

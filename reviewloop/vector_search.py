@@ -186,3 +186,13 @@ class StubRetriever:
     def search(self, ticket: ChangeRequest, team_id: str) -> Retrieval:
         elig = [m for m in self.repo.eligible_memories(team_id, ticket.service_id) if m["rule_type"] in VALIDATORS]
         return Retrieval(mode=MODE_STUB, candidates=len(elig), eligible=elig)
+
+
+class AtlasRetriever:
+    """Live retriever: real embeddings + Atlas $vectorSearch. Raises on any failure."""
+
+    def __init__(self, repo: Repository, embedder, index: str = "memory_vector_index"):
+        self.repo, self.embedder, self.index = repo, embedder, index
+
+    def search(self, ticket: ChangeRequest, team_id: str) -> Retrieval:
+        return search_memories(self.repo, self.embedder, ticket, team_id, self.index)

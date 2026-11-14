@@ -257,6 +257,14 @@ class Repository:
                                     "approval_status": "approved", "is_latest": True}, {"embedding": 0})
         return [d for d in cur if self.is_eligible(d, team_id, service_id)]
 
+    def other_team_memory_count(self, team_id: str, service_id: str) -> int:
+        """Display-only count of active memory revisions belonging to OTHER teams (never applied)."""
+        return self.db[MEMORY].count_documents({"team_id": {"$ne": team_id}, "service_id": service_id,
+                                                "status": "active", "is_latest": True})
+
+    def review_runs(self, fixture_id: str) -> List[Dict[str, Any]]:
+        return list(self.db[RUNS].find({"fixture_id": fixture_id}).sort("review_id", 1))
+
     def history(self, memory_id: str) -> List[Dict[str, Any]]:
         return list(self.db[MEMORY].find({"memory_id": memory_id}, {"embedding": 0}).sort("revision", 1))
 
